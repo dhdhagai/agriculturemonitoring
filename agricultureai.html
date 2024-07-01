@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat UI</title>
+    <style>
+        /* Add CSS styles for the chat UI here */
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-history"></div>
+        <input type="text" id="user-message" placeholder="Type your message">
+        <button id="send-button">Send</button>
+    </div>
+
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-message');
+        const sendButton = document.getElementById('send-button');
+
+        sendButton.addEventListener('click', () => {
+            const message = userInput.value;
+            // Simulate sending the message to the large language model (replace with actual API call)
+            const response = simulateResponse(message);
+            addMessageToChat(message, 'user');
+            addMessageToChat(response, 'ai');
+            userInput.value = '';
+        });
+
+        function addMessageToChat(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add(sender);
+            messageElement.innerText = text;
+            chatHistory.appendChild(messageElement);
+        }
+
+        // This is a placeholder function, simulating model response
+        function simulateResponse(message) {
+            return "Hey! How can I help you today?";
+        }
+    </script>
+</body>
+</html>
