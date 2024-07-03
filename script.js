@@ -7,12 +7,12 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
     addMessage('user', message);
     input.value = '';
 
-    const response = await fetch('/api/chat', {
+    const response = await fetch('http://localhost:3000/api/chat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message })
+        body: JSON.stringify({message}),
     });
 
     const data = await response.json();
@@ -22,8 +22,10 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
 function addMessage(sender, message) {
     const messages = document.getElementById('messages');
     const div = document.createElement('div');
-    div.className = `message ${sender}`;
-    div.textContent = message;
+    var converter = new showdown.Converter();
+var md = message;
+var html = converter.makeHtml(md);
+    div.innerHTML = `${html}`;
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
 }

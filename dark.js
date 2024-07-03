@@ -81,7 +81,9 @@ document.getElementById("darkSwitch").addEventListener("click", () => {
 function DarkModeToggle() {
   const darkSwitch = localStorage.getItem("darkSwitch");
   const navLinks = document.querySelectorAll(".nav-link");
-
+  const chatcontainer = document.querySelectorAll("div#chat-container")
+const messages = document.querySelectorAll("div#messages");
+const forms = document.querySelectorAll("div#messages");
   const img = document.querySelectorAll(".img-fluid")
   const links = document.querySelectorAll(".github-profile")
 
@@ -91,6 +93,18 @@ function DarkModeToggle() {
   })
   links.forEach(element => {
     element.classList.remove("text-white")
+  })
+  chatcontainer.forEach(element => {
+    element.classList.remove("bg-dark");
+    element.classList.remove("text-white");
+    element.classList.remove("dropdown-menu-dark");
+    element.classList.remove("dropdown-item-dark");
+  })
+  messages.forEach(element => {
+    element.classList.remove("bg-dark");
+    element.classList.remove("text-white");
+    element.classList.remove("dropdown-menu-dark");
+    element.classList.remove("dropdown-item-dark");
   })
   document.querySelectorAll("a").forEach(element => {
     if(element.classList.contains("text-white")){
@@ -111,6 +125,18 @@ function DarkModeToggle() {
   } else if (darkSwitch === "dark"){
     img.forEach(el => {
         el.setAttribute("src", "github-mark-white.svg")
+    })
+    chatcontainer.forEach(element => {
+      element.classList.add("bg-dark");
+      element.classList.add("text-white");
+      element.classList.add("dropdown-menu-dark");
+      element.classList.add("dropdown-item-dark");
+    })
+    messages.forEach(element => {
+      element.classList.add("bg-dark");
+      element.classList.add("text-white");
+      element.classList.add("dropdown-menu-dark");
+      element.classList.add("dropdown-item-dark");
     })
     navLinks.forEach(element => {
       console.log(element)
