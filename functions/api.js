@@ -5,7 +5,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-const apiKey = "Enter API Key";  // Replace with your actual OpenAI API key
+const apiKey = process.env.APIKEY  // Replace with your actual OpenAI API key
 const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,7 +28,7 @@ app.post('/api/chat', async (req, res) => {
             ]
         };
 
-        axios.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCBqHB-LydVsiJUNpZLnS6YybkykHqUWEQ', data, {
+        axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, data, {
             headers: {
                 'Content-Type': 'application/json'
             }
