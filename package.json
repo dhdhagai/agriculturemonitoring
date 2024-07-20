@@ -1,14 +1,15 @@
 {
   "dependencies": {
-    "axios": "^1.7.2",
-    "body-parser": "^1.20.2",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "node-fetch": "^3.3.2"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "serverless-http": "^2.3.2"
   },
   "scripts": {
-    "start": "node server.js"
+        "build": "echo 'No build step required'",
+    "dev": "node functions/api.js"
   },
   "name": "agriculturemonitoring",
   "description": "",

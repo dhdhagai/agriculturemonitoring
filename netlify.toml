@@ -1,0 +1,22 @@
+[build]
+  command = "npm run build"
+  publish = "public"
+  functions = "functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[dev]
+  command = "npm run dev"
+  port = 3000
+  targetPort = 3000
+
+[build.environment]
+  NODE_VERSION = "16.x"  # Specify the Node.js version you're using
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
