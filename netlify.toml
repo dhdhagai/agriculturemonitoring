@@ -14,7 +14,7 @@
   targetPort = 3000
 
 [build.environment]
-  NODE_VERSION = "18.x"  # Specify the Node.js version you're using
+  NODE_VERSION = "18.17.0"  # Specify the Node.js version you're using
 
 [[headers]]
   for = "/*"
