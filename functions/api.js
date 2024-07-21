@@ -1,4 +1,5 @@
 const express = require('express');
+
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const axios = require('axios');
@@ -15,6 +16,7 @@ app.use(cors());
 app.get("/", (req,res) => {
     
 })
+
 app.post('/api/chat', async (req, res) => {
     const userMessage = req.body.message;
     console.log(userMessage);
