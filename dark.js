@@ -81,9 +81,9 @@ document.getElementById("darkSwitch").addEventListener("click", () => {
 function DarkModeToggle() {
   const darkSwitch = localStorage.getItem("darkSwitch");
   const navLinks = document.querySelectorAll(".nav-link");
-  const chatcontainer = document.querySelectorAll("div#chat-container")
+  const chatcontainer = document.querySelectorAll("#user-input")
 const messages = document.querySelectorAll("div#messages");
-const forms = document.querySelectorAll("div#messages");
+const forms = document.querySelectorAll("div#chat-form");
   const img = document.querySelectorAll(".img-fluid")
   const links = document.querySelectorAll(".github-profile")
 
@@ -95,16 +95,21 @@ const forms = document.querySelectorAll("div#messages");
     element.classList.remove("text-white")
   })
   chatcontainer.forEach(element => {
+    if(element.classList.contains("bg-dark")){
     element.classList.remove("bg-dark");
     element.classList.remove("text-white");
     element.classList.remove("dropdown-menu-dark");
     element.classList.remove("dropdown-item-dark");
-  })
+  }})
   messages.forEach(element => {
     element.classList.remove("bg-dark");
     element.classList.remove("text-white");
     element.classList.remove("dropdown-menu-dark");
     element.classList.remove("dropdown-item-dark");
+  })
+  forms.forEach(element => {
+    element.remove("bg-dark");
+    element.remove("text-white");
   })
   document.querySelectorAll("a").forEach(element => {
     if(element.classList.contains("text-white")){
@@ -126,11 +131,18 @@ const forms = document.querySelectorAll("div#messages");
     img.forEach(el => {
         el.setAttribute("src", "github-mark-white.svg")
     })
+    forms.forEach(element => {
+      console.log(element)
+      element.add("bg-dark");
+      element.add("text-white");
+    })
     chatcontainer.forEach(element => {
-      element.classList.add("bg-dark");
-      element.classList.add("text-white");
-      element.classList.add("dropdown-menu-dark");
-      element.classList.add("dropdown-item-dark");
+      if(!element.classList.contains("bg-dark")){
+        element.classList.add("bg-dark");
+        element.classList.add("text-white");
+        element.classList.add("dropdown-menu-dark");
+        element.classList.add("dropdown-item-dark");
+      }
     })
     messages.forEach(element => {
       element.classList.add("bg-dark");

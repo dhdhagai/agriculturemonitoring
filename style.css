@@ -78,7 +78,10 @@ font-family: arial, sans-serif;
 border-collapse: collapse;
 width: 100%;
 }
-
+button.btn{
+background-color: #00a79D   ;
+width: min-content;
+}
 
 
 tr:nth-child(even) {
@@ -162,7 +165,7 @@ a.bt{
 }
 
 /* Hover Effects */
-.button:hover {
+.btn.button:hover {
     background-color: #2980b9;
 }
 
@@ -174,4 +177,9 @@ a.bt{
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.5;
+}
+
+
+form{
+    padding-top: 1em;
 }

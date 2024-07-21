@@ -3,15 +3,18 @@ const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 require('dotenv').config();
-
+const path = require("path")
 const app = express();
-const apiKey = process.env.APIKEY  // Replace with your actual OpenAI API key
+const apiKey = process.env.APIKEY
+console.log(apiKey)  // Replace with your actual OpenAI API key
 const cors = require('cors');
-
+app.use(express.static(path.join(__dirname, '/../')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-
+app.get("/", (req,res) => {
+    
+})
 app.post('/api/chat', async (req, res) => {
     const userMessage = req.body.message;
     console.log(userMessage);
@@ -33,8 +36,18 @@ app.post('/api/chat', async (req, res) => {
                 'Content-Type': 'application/json'
             }
         })
+
         .then(response => {
-            res.status(200).send(JSON.stringify({ "reply": response.data.candidates[0].content.parts[0].text }));
+        try{
+            let reply = response.data.candidates[0].content.parts[0].text
+            res.status(200).send(JSON.stringify({ "reply": reply }));
+        }
+        catch {
+            reply = "Sorry I am having Trouble working out your query, Can you input it again?"
+            res.status(200).send(JSON.stringify({ "reply": reply }));
+        }
+           
+        
         })
         .catch(error => {
             console.error(error);
@@ -48,3 +61,10 @@ app.post('/api/chat', async (req, res) => {
 });
 
 module.exports.handler = serverless(app);
+process.argv.forEach(function (val, index, array) {
+    if(val == "homerun"){
+        app.listen(3000, () => {
+            console.log("Started Server at 3000")
+        })
+    }
+  });
