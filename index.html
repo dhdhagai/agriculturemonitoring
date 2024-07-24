@@ -78,7 +78,7 @@ return formattedDate;}
 let weatherData = {
     
     };
-  let response =  fetch("/api/weather")
+  let response =  fetch("/weather")
 response.then(data => {return data.json()}).then(data => {
     console.log(data)
     weatherData = data
