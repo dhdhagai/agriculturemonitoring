@@ -32,7 +32,7 @@ app.post('/api/chat', async (req, res) => {
                 }
             ]
         };
-        app.get("/api/weather", async (req,res) => {
+app.get("/api/weather", async (req,res) => {
             axios.get('https://api.weatherapi.com/v1/forecast.json?key=3b4f58d00c534805bc7141356242407&q=Vadodara&days=3&aqi=no&alerts=yes').then(data => res.send({"current": data.data.current, "forcast": data.data.forecast, "location": data.data.location}))
         
         })

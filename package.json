@@ -9,7 +9,8 @@
   },
   "scripts": {
         "build": "echo 'No build step required'",
-    "dev": "node functions/api.js homerun"
+    "dev": "node functions/api.js homerun",
+    "start": "node functions/api.js"
   },
   "name": "agriculturemonitoring",
   "description": "",
