@@ -3,10 +3,6 @@
   publish = "/"
   functions = "functions"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
 [dev]
   command = "npm run dev"

@@ -17,6 +17,10 @@ app.get("/", (req,res) => {
     
 })
 
+app.get("/api/weather", async (req,res) => {
+    axios.get('https://api.weatherapi.com/v1/forecast.json?key=3b4f58d00c534805bc7141356242407&q=Vadodara&days=3&aqi=no&alerts=yes').then(data => res.send({"current": data.data.current, "forcast": data.data.forecast, "location": data.data.location}))
+
+})
 app.post('/api/chat', async (req, res) => {
     const userMessage = req.body.message;
     console.log(userMessage);
@@ -32,7 +36,6 @@ app.post('/api/chat', async (req, res) => {
                 }
             ]
         };
-
         axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, data, {
             headers: {
                 'Content-Type': 'application/json'
