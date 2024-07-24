@@ -66,10 +66,4 @@ app.post('/api/chat', async (req, res) => {
 });
 
 module.exports.handler = serverless(app);
-process.argv.forEach(function (val, index, array) {
-    if(val == "homerun"){
-        app.listen(3000, () => {
-            console.log("Started Server at 3000")
-        })
-    }
-  });
+
