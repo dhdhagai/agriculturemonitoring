@@ -1,69 +1,86 @@
-const express = require('express');
-
-const serverless = require('serverless-http');
-const bodyParser = require('body-parser');
 const axios = require('axios');
 require('dotenv').config();
-const path = require("path")
-const app = express();
-const apiKey = process.env.APIKEY
-console.log(apiKey)  // Replace with your actual OpenAI API key
-const cors = require('cors');
-app.use(express.static(path.join(__dirname, '/../')));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cors());
-app.get("/", (req,res) => {
-    
-})
 
-app.get("/api/weather", async (req,res) => {
-    axios.get('https://api.weatherapi.com/v1/forecast.json?key=3b4f58d00c534805bc7141356242407&q=Vadodara&days=3&aqi=no&alerts=yes').then(data => res.send({"current": data.data.current, "forcast": data.data.forecast, "location": data.data.location}))
+// Weather Handler
+const getWeather = async (event) => {
+  try {
+    const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?key=3b4f58d00c534805bc7141356242407&q=Vadodara&days=3&aqi=no&alerts=yes');
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        "current": response.data.current,
+        "forecast": response.data.forecast,
+        "location": response.data.location
+      }),
+    };
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to fetch weather data' }),
+    };
+  }
+};
 
-})
-app.post('/api/chat', async (req, res) => {
-    const userMessage = req.body.message;
-    console.log(userMessage);
-    try {
-        const data = {
-            contents: [
-                {
-                    parts: [
-                        {
-                            text: userMessage
-                        }
-                    ]
-                }
-            ]
-        };
-        axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, data, {
-            headers: {
-                'Content-Type': 'application/json'
+// Chat Handler
+const chatHandler = async (event) => {
+  const userMessage = JSON.parse(event.body).message;
+  const apiKey = process.env.APIKEY;
+
+  try {
+    const data = {
+      contents: [
+        {
+          parts: [
+            {
+              text: userMessage
             }
-        })
-
-        .then(response => {
-        try{
-            let reply = response.data.candidates[0].content.parts[0].text
-            res.status(200).send(JSON.stringify({ "reply": reply }));
+          ]
         }
-        catch {
-            reply = "Sorry I am having Trouble working out your query, Can you input it again?"
-            res.status(200).send(JSON.stringify({ "reply": reply }));
-        }
-           
-        
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to fetch AI response' });
-        });
+      ]
+    };
 
-    } catch (error) {
-        console.error('Error making API request:', error);
-        res.status(500).json({ error: 'Failed to fetch AI response' });
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    let reply;
+    try {
+      reply = response.data.candidates[0].content.parts[0].text;
+    } catch {
+      reply = "Sorry I am having trouble working out your query. Can you input it again?";
     }
-});
 
-module.exports.handler = serverless(app);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ "reply": reply }),
+    };
+  } catch (error) {
+    console.error('Error making API request:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to fetch AI response' }),
+    };
+  }
+};
 
+// Main handler for API requests
+exports.handler = async (event, context) => {
+  switch (event.path) {
+    case '/api/weather':
+      return getWeather(event);
+    case '/api/chat':
+      return chatHandler(event);
+    default:
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: 'Not Found' }),
+      };
+  }
+};
