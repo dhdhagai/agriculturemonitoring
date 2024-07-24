@@ -15,7 +15,7 @@
   "name": "agriculturemonitoring",
   "description": "",
   "version": "1.0.0",
-  "main": "dark-mode-switch.min.js",
+  "main": "functions/api.js",
   "keywords": [],
   "author": "",
   "license": "ISC"
