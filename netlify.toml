@@ -2,11 +2,12 @@
   command = "npm run build"
   publish = "/"
   functions = "functions"
+  targetPort = 3000
 
 
 [dev]
   command = "npm run dev"
-  port = 3000
+  port = 5000
   targetPort = 3000
 
 [build.environment]

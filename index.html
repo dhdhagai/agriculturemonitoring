@@ -75,12 +75,17 @@ const userLocale = navigator.language || 'en-US';
 const formattedDate = date.toLocaleString(userLocale);
 return formattedDate;}
 
-let weatherData = {
-    
-    };
-  let response =  fetch("/weather")
-response.then(data => {return data.json()}).then(data => {
-    console.log(data)
+
+  let response =  fetch("https://api.weatherapi.com/v1/forecast.json?key=3b4f58d00c534805bc7141356242407&q=Vadodara&days=3&aqi=no&alerts=yes")
+  response.then(data => data.json())
+        .then(data => {
+            let weatherData = {
+                "current": data.current,
+                "forecast": data.forecast,
+                "location": data.location
+            };
+
+console.log(weatherData)
     weatherData = data
     document.getElementById('location').innerText = `Location: ${weatherData.location.name}`;
         document.getElementById('localTime').innerText = `Local Time: ${getDate()}`;
@@ -96,7 +101,7 @@ response.then(data => {return data.json()}).then(data => {
         //forecast
 
         const forecastContainer = document.getElementById('forecast');
-        weatherData.forcast.forecastday.forEach(day => {
+        weatherData.forecast.forecastday.forEach(day => {
             const forecastDiv = document.createElement('div');
             forecastDiv.classList.add('mb-3');
             forecastDiv.innerHTML = `
@@ -114,8 +119,9 @@ response.then(data => {return data.json()}).then(data => {
             forecastContainer.appendChild(forecastDiv);
         });
 })
-
-
+        .catch(error => {
+            console.error('Error:', error);
+        });
  
 </script>
                         </div>

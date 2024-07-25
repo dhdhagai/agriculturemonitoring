@@ -8,7 +8,7 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
     addMessage('user', message);
     input.value = '';
 
-    const response = await fetch('/api/chat', {
+    const response = await fetch('::3000/api/chat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
