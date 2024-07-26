@@ -177,9 +177,105 @@ a.bt{
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.5;
+    font-size: small;
 }
 
 
 form{
     padding-top: 1em;
+}
+
+
+.card {
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+
+    padding: 0.5rem;
+
+}
+
+.card-body {
+    padding: 0.5rem;
+}
+
+.card-footer {
+
+    padding: 0.5rem;
+
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+}
+
+.weather-icon-small {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+}
+
+.text-info {
+    flex: 1;
+}
+
+.additional-info {
+    margin-top: 0.5rem;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+
+.vertical-card {
+    max-width: 500px; /* Adjust as needed */
+    max-height: inherit;
+    margin: auto;
+}
+
+.forecast-card {
+    max-width: fit-content; /* Adjust as needed */
+
+    margin: auto;
+}
+
+.forecast-container {
+    display: flex;
+
+    overflow-x: auto;
+
+    padding: 0.5rem 0;
+}
+
+.forecast-container > div {
+    flex: 0 0 auto;
+    margin-right: 1rem;
+
+    border-radius: 8px;
+    padding: 0.5rem;
+
+}
+
+.forecast-container img {
+    width: 30px;
+    height: 30px;
+}
+.card-body iframe {
+    width: 100%;
+    height: auto;
+    max-height: 250px; /* Maintain aspect ratio while keeping it responsive */
 }

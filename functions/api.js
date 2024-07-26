@@ -61,11 +61,10 @@ app.post('/api/chat', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch AI response' });
     }
 });
-
 module.exports.handler = serverless(app);
 process.argv.forEach(function (val, index, array) {
     if(val == "homerun"){
-        app.listen(3000, () => {
+        app.listen(process.env.PORT || 3000, () => {
             console.log("Started Server at 3000")
         })
     }

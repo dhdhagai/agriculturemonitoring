@@ -31,43 +31,138 @@
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Weather Conditions</h5>
-                        <a class="weatherwidget-io" href="https://forecast7.com/en/22d3173d18/vadodara/" data-label_1="VADODARA" data-icons="Climacons Animated" data-days="3" style="width: 420px height 250"; data-theme="weather_one" >VADODARA</a>
-                    <script>
-                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-                </script>
+            <div class="card vertical-card">
+                <div class="card-header">
+                    <h5 id="title" class="mb-0">Weather</h5>
+                </div>
+                <div class="card-body">
+                    <div class="weather-info">
+                        <img id="conditionIcon" src="" alt="Weather Icon" class="weather-icon-small">
+                        <div class="text-info">
+                            <h6 id="location" class="card-title mb-2"></h6>
+                            <p id="temperature" class="card-text"></p>
+                            <p id="conditionText" class="card-text"></p>
+                            <p id="localTime" class="card-text"></p>
+                        </div>
+                    </div>
+                    <div class="additional-info">
+                        <p id="windSpeed" class="card-text"></p>
+                        <p id="precipitation" class="card-text"></p>
+                        <p id="humidity" class="card-text"></p>
+                        <p id="cloud" class="card-text"></p>
+                    </div>
+                </div>
+                <div id="lastUpdated" class="card-footer"></div>
+            </div>
+            
+            <div class="card mt-3 vertical-card forecast-card">
+                <div class="card-header">
+                    <h6>Forecast</h6>
+                </div>
+                <div class="card-body">
+                    <div id="forecast" class="forecast-container"></div>
+                </div>
+            </div>
+            
+                
+                
+                
+            
+
+<script>
+function getDate(){const date = new Date();
+const userLocale = navigator.language || 'en-US';
+const formattedDate = date.toLocaleString(userLocale);
+return formattedDate;}
+
+
+  let response =  fetch("https://api.weatherapi.com/v1/forecast.json?key=3b4f58d00c534805bc7141356242407&q=Vadodara&days=3&aqi=no&alerts=yes")
+  response.then(data => data.json())
+        .then(data => {
+            let weatherData = {
+                "current": data.current,
+                "forecast": data.forecast,
+                "location": data.location
+            };
+
+console.log(weatherData)
+    weatherData = data
+    document.getElementById('location').innerText = `Location: ${weatherData.location.name}`;
+        document.getElementById('localTime').innerText = `Local Time: ${getDate()}`;
+        document.getElementById('temperature').innerText = `Temperature: ${weatherData.current.temp_c}°C`;
+        document.getElementById('conditionText').innerText = `Condition: ${weatherData.current.condition.text}`;
+        document.getElementById('conditionIcon').src = weatherData.current.condition.icon;
+        document.getElementById('windSpeed').innerText = `Wind Speed: ${weatherData.current.wind_kph}kph`;
+        document.getElementById('precipitation').innerText = `Precipitation:  ${weatherData.current.precip_in}in`;
+        document.getElementById('humidity').innerText = `Humidity: ${weatherData.current.humidity}%`;
+        document.getElementById('cloud').innerText = `Cloud Cover: ${weatherData.current.cloud}%`;
+        document.getElementById('lastUpdated').innerText = `Last Updated: ${getDate()}`;
+
+        //forecast
+
+        const forecastContainer = document.getElementById('forecast');
+        weatherData.forecast.forecastday.forEach(day => {
+            const forecastDiv = document.createElement('div');
+            forecastDiv.classList.add('mb-3');
+            forecastDiv.innerHTML = `
+                <h5 class="card-title">${day.date}</h5>
+                <p class="card-text"><strong>Max Temp:</strong> ${day.day.maxtemp_c}°C</p>
+                <p class="card-text"><strong>Min Temp:</strong> ${day.day.mintemp_c}°C</p>
+                <p class="card-text"><strong>Avg Temp:</strong> ${day.day.avgtemp_c}°C</p>
+                <p class="card-text"><strong>Max Wind:</strong> ${day.day.maxwind_kph} kph</p>
+                <p class="card-text"><strong>Total Precipitation:</strong> ${day.day.totalprecip_in} in</p>
+                <p class="card-text"><strong>Average Humidity:</strong> ${day.day.avghumidity}%</p>
+                <p class="card-text"><strong>Chance of Rain:</strong> ${day.day.daily_chance_of_rain}%</p>
+                <p class="card-text"><strong>Condition:</strong> ${day.day.condition.text}</p>
+                <p class="card-text"><img src="${day.day.condition.icon}" alt="Weather Icon"></p>
+            `;
+            forecastContainer.appendChild(forecastDiv);
+        });
+})
+        .catch(error => {
+            console.error('Error:', error);
+        });
+ 
+</script>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Soil Moisture</h5>
-                        <p class="card-text">Moisture Level: 35%</p>
+
+                <hr>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card vertical-card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Soil Moisture</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Moisture Level: 35%</p>
+                                </div>
+                                <div class="card-footer">
+                                    <!-- Optional footer content -->
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="col-md-6 mb-4">
+                            <div class="card vertical-card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Crops Live Field</h5>
+                                </div>
+                                <div class="card-body">
+                                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                                <div class="card-footer">
+                                    <!-- Optional footer content -->
+                                </div>
+                            </div>
+                        </div>
+                
+                    
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Crops Live Field</h5>
-                        <iframe width="420" height="250" src="https://www.youtube.com/embed/dQw4w9WgXcQ?"></iframe>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Crop Health</h5>
-                        <p class="card-text">Health Status: Good</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                
 
     <div id="hm-footer"></div>
     <div class="container h-50 w-50"></div>
