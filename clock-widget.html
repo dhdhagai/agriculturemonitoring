@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-Based Clock Widget</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        #clock {
+            font-size: 48px;
+            color: #333;
+        }
+        #date {
+            font-size: 24px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock"></div>
+    <div id="date"></div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const currentTime = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clock').textContent = currentTime;
+            
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const day = days[now.getDay()];
+            const date = now.toLocaleDateString();
+            const fullDate = `${day}, ${date}`;
+            document.getElementById('date').textContent = fullDate;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();  // Initial call to display the clock immediately
+    </script>
+</body>
+</html>
