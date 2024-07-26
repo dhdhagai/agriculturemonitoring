@@ -8,13 +8,44 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
     addMessage('user', message);
     input.value = '';
 
-    const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({message}),
-    });
+    const userMessage = req.body.message;
+    console.log(userMessage);
+    try {
+        const data = {
+            contents: [
+                {
+                    parts: [
+                        {
+                            text: userMessage
+                        }
+                    ]
+                }
+            ]
+        };
+
+        axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        .then(response => {
+        try{
+            let reply = response.data.candidates[0].content.parts[0].text
+        }
+        catch {
+            reply = "Sorry I am having Trouble working out your query, Can you input it again?"
+        }
+           
+        
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    } catch (error) {
+        console.error('Error making API request:', error);
+    }
 
     const data = await response.json();
     addMessage('bot', data.reply);

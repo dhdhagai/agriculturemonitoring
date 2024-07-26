@@ -279,3 +279,15 @@ form{
     height: auto;
     max-height: 250px; /* Maintain aspect ratio while keeping it responsive */
 }
+#clock {
+    font-size: 48px;
+    color: #333;
+}
+#date {
+    font-size: 24px;
+    color: #666;
+}
+
+#animate{
+    animation: ease-in  5s normal;
+}
