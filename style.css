@@ -291,3 +291,16 @@ form{
 #animate{
     animation: ease-in  5s normal;
 }
+
+#clock {
+    font-size: 48px;
+    color: #333;
+}
+#date {
+    font-size: 24px;
+    color: #666;
+}
+
+#animate{
+    animation: ease-in  5s normal;
+}
