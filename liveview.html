@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Field View - Agriculture Monitoring</title>
+    <script>
+      window.onload = function() {
+    var loginDetails = document.cookie.split(';').find(row => row.trim().startsWith('LOGIN_DETAILS='));
+  
+    if (loginDetails) {
+        
+        document.getElementById('sign').href = "logout.html";
+    } else {
+        document.getElementById('sign').textContent = 'Login';
+        document.location = "/login.html"
+    }
+  };
+  </script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"

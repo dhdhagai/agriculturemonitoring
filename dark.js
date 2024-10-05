@@ -90,10 +90,14 @@ function DarkModeToggle() {
     table: document.getElementById("table"),
     drpdwn: document.getElementById("drpdwn"),
     allLinks: document.querySelectorAll("a"),
+    textContainer: document.querySelectorAll(".text-container")
   };
 
   // Function to apply dark mode classes
   function applyDarkMode() {
+    elementsToToggle.textContainer.forEach(el => {
+      el.classList.add("bg-dark", "text-white")
+    })
     elementsToToggle.img.forEach(el => {
       el.setAttribute("src", "github-mark-white.svg");
     });
@@ -135,6 +139,9 @@ function DarkModeToggle() {
 
   // Function to remove dark mode classes
   function removeDarkMode() {
+    elementsToToggle.textContainer.forEach(el => {
+      el.classList.remove("bg-dark", "text-white")
+    })
     elementsToToggle.img.forEach(el => {
       el.setAttribute("src", "github-mark.svg");
     });
@@ -183,3 +190,44 @@ function DarkModeToggle() {
     removeDarkMode();
   }
 }
+
+  // Function to get a cookie value by name
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) return match[2];
+    return null;
+  }
+
+  // Function to check if the user is logged in
+  function checkLogin() {
+    const loginDetails = getCookie('LOGIN_DETAILS'); // Check if login details are stored in cookies
+
+    // If not logged in, redirect to login page
+    if (!loginDetails) {
+      const currentPage = window.location.pathname; // Get the current page URL
+      const loginPage = '/login.html'; // The path to your login page
+      const signupPage = '/signup.html'; // The path to your signup page
+
+      // Only redirect to login if the user is not on the login or signup page
+      if (currentPage !== loginPage && currentPage !== signupPage) {
+        window.location.href = loginPage;
+      }
+    } else {
+      // User is logged in, display their details
+      const loginDetailsJSON = JSON.parse(loginDetails.split("=")[1]);
+      const username = loginDetailsJSON.username;
+
+      // Update the UI with the login status (example: in a navigation bar)
+      const signElement = document.getElementById('sign');
+      if (signElement) {
+        signElement.innerHTML = `Logged in as ${username}. Logout`;
+        signElement.href = "logout.html"; // Logout link
+      }
+    }
+  }
+
+  // Run the login check when the page loads
+  document.addEventListener('DOMContentLoaded', function () {
+    checkLogin();
+  });
+

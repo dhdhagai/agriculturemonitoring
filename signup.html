@@ -4,7 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign-Up - Agriculture Monitoring</title>
-  
+  <script>
+    // Check if user is logged in and redirect to home page if so
+    window.onload = function() {
+      var loginDetails = document.cookie.split(';').find(row => row.trim().startsWith('LOGIN_DETAILS='));
+
+      if (loginDetails) {
+          document.getElementById('sign').href = "logout.html";
+      } else {
+          document.location = "/login.html";
+      }
+    };
+
+    // Function to check if the user already exists in localStorage
+    function checkUserExists(username) {
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      return users.some(user => user.username === username);
+    }
+
+    // Function to store user data in localStorage
+    function storeUserData(username, email, password) {
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      users.push({ username, email, password });
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    // Function to handle signup form submission
+    function handleSignup(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Check if user already exists
+      if (checkUserExists(username)) {
+        document.getElementById('signupStatus').innerText = "User already exists. Please try a different username.";
+        return;
+      }
+
+      // Store the user data in localStorage
+      storeUserData(username, email, password);
+
+      // Redirect user after signup (you can also show a success message)
+      document.getElementById('signupStatus').innerText = "Signup successful! Redirecting to login page...";
+      setTimeout(function() {
+        window.location.href = 'login.html';
+      }, 2000);
+    }
+  </script>
+
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   
@@ -38,6 +87,7 @@
     #signupStatus {
       margin-top: 10px;
       font-size: 14px;
+      color: red;
     }
     
     .text-container {
@@ -45,7 +95,7 @@
       margin: 20px auto;
       padding: 15px;
       border-radius: 8px;
-      background-color: #f8f9fa; /* Light background color */
+      background-color: #f8f9fa;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
@@ -53,15 +103,15 @@
 </head>
 
 <body>
-  <script>let page = "login";</script>
+  <script>let page = "signup";</script>
   <div id="hm-nav"></div>
 
   <div class="signup-container">
     <h2 class="text-center">Signup</h2>
-    <form id="signupForm">
+    <form id="signupForm" onsubmit="handleSignup(event)">
       <div class="form-group">
-        <label for="username">E-Mail:</label>
-        <input type="text" class="form-control" id="email" name="email" required>
+        <label for="email">E-Mail:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
       </div>
       <div class="form-group">
         <label for="username">Username:</label>
@@ -81,26 +131,16 @@
     <p>If you have already created an account then <a href="login.html">Login</a></p>
   </div>
 
+  <!-- Optional Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="dark.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    
-    <!-- Bootstrap JS (Optional, only if you need Bootstrap JS features) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Your custom script -->
-    <script src="dark.js"></script>
-
-    <div id="hm-footer"></div>
-    <div class="container h-50 w-50"></div>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-    <div class="form-check form-switch">
-        <input type="checkbox" class="form-check-input" id="darkSwitch" sw1/>
-        <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
-    </div>
-    <script src="dark-mode-switch.min.js"></script>
-    <script src="dark.js"></script>
+  <!-- Footer and Scripts -->
+  <div id="hm-footer"></div>
+  <div class="container h-50 w-50"></div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
