@@ -24,18 +24,6 @@ href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swa
 rel="stylesheet"
 />
 
-<script>
-    window.onload = function() {
-  var loginDetails = document.cookie.split(';').find(row => row.trim().startsWith('LOGIN_DETAILS='));
-
-  if (loginDetails) {
-      
-      document.getElementById('sign').href = "logout.html";
-  } else {
-document.location = "/login.html"
-  }
-};
-</script>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -72,7 +60,6 @@ document.location = "/login.html"
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
@@ -80,7 +67,6 @@ document.location = "/login.html"
                             <p class="card-text">Have Doubts or Confusion? Ask Me!</p>
                             <a href="agricultureai.html" class="btn bt">Click Here</a>
                         </div>
-
                     </div>
                 </div>
         </section>
@@ -92,12 +78,10 @@ document.location = "/login.html"
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-
             <div class="form-check form-switch">
         <input type="checkbox" class="form-check-input" id="darkSwitch" sw1/>
         <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
     </div>
-
     <script src="dark-mode-switch.min.js"></script>
         
     <script src="dark.js"></script>

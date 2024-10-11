@@ -3,4 +3,3 @@ node_modules
 env.js
 # Local Netlify folder
 .netlify
-env.js

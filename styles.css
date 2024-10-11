@@ -76,13 +76,3 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #ffffff;
-    font-family: Arial, sans-serif;
-}
