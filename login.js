@@ -4,9 +4,6 @@ function getCookie(name) {
     return match ? match[2] : null;
 }
 
-// Function to check if the username exists in local storage
-
-
 // Function to check login status and update the navbar
 function checkLogin() {
     const loginDetails = getCookie('LOGIN_DETAILS'); // Check if login details are stored in cookies
@@ -27,8 +24,6 @@ function checkLogin() {
             try {
                 const loginDetailsJSON = JSON.parse(decodeURIComponent(loginDetails));
                 const username = loginDetailsJSON.username;
-
-
 
                 // Create a new anchor element for the sign-in status
                 const userLink = document.createElement("a");
