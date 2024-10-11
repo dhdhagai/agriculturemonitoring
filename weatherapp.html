@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App - Agriculture Monitoring</title>
+    <script>
+        window.onload = function() {
+      var loginDetails = document.cookie.split(';').find(row => row.trim().startsWith('LOGIN_DETAILS='));
+    
+      if (loginDetails) {
+          
+          document.getElementById('sign').href = "logout.html";
+      } else {
+ document.location = "/login.html"
+      }
+    };
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+</head>
+
+<body>
+
+    <script>let page = "weatherapp";</script>
+    <div id="hm-nav"></div>
+
+    <!-- Container for Weather Data -->
+    <div class="container my-5">
+        <div class="card text-center">
+            <div class="card-header">
+                <h3 class="card-title">Weather Forecast</h3>
+            </div>
+            <div class="card-body">
+                <h5 id="location" class="card-title">Fetching location...</h5>
+                <div class="row mt-4" id="weather-cards">
+                    <!-- Weather data will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to Ask for Permission and Fetch Weather Data -->
+    <script>
+        // Function to fetch and display weather data based on IP location
+function fetchWeatherData() {
+    // Check if geolocation is available
+    if (navigator.geolocation) {
+        // Get the user's current position
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Now fetch the weather data for the user's location
+            const apiKey = '8a7bb178711243fdae4105644242809';  // Replace this with your weather API key
+            const weatherUrl = `https://api.weatherapi.com/v1/current.json?key=8a7bb178711243fdae4105644242809&q=23,33&aqi=no`;
+
+            fetch(weatherUrl)
+            .then(response => response.json())
+            .then(weatherData => {
+                const temp = weatherData.current.temp_c;
+                const description = weatherData.current.condition.text;
+                const humidity = weatherData.current.humidity;
+                const windSpeed = weatherData.current.wind_kph;
+                const city = weatherData.location.name;
+                const region = weatherData.location.region;
+                const country = weatherData.location.country;
+
+                // Display location information
+                document.getElementById('location').textContent = `Location: ${city}, ${region}, ${country}`;
+
+                // Dynamically insert weather information into Bootstrap cards
+                document.getElementById('weather-cards').innerHTML = `
+                    <div class="col-md-3">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <i class="fas fa-thermometer-half fa-2x text-primary"></i>
+                                <h5 class="card-title mt-2">Temperature</h5>
+                                <p class="card-text">${temp}°C</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <i class="fas fa-cloud-sun fa-2x text-warning"></i>
+                                <h5 class="card-title mt-2">Condition</h5>
+                                <p class="card-text">${description}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <i class="fas fa-tint fa-2x text-info"></i>
+                                <h5 class="card-title mt-2">Humidity</h5>
+                                <p class="card-text">${humidity}%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <i class="fas fa-wind fa-2x text-success"></i>
+                                <h5 class="card-title mt-2">Wind Speed</h5>
+                                <p class="card-text">${windSpeed} kph</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('weather-cards').innerHTML = '<div class="col"><p class="text-danger">Error fetching weather data</p></div>';
+                console.error('Error fetching weather:', error);
+            });
+        }, function(error) {
+            // Handle geolocation errors (e.g., user denies location access)
+            document.getElementById('location').textContent = 'Error fetching location';
+            document.getElementById('weather-cards').innerHTML = '<div class="col"><p class="text-danger">Geolocation access denied or unavailable</p></div>';
+            console.error('Error fetching location:', error);
+        });
+    } else {
+        // Handle case where geolocation is not supported
+        document.getElementById('location').textContent = 'Geolocation is not supported by this browser';
+        document.getElementById('weather-cards').innerHTML = '<div class="col"><p class="text-danger">Geolocation is not supported by this browser</p></div>';
+    }
+}
+
+        // Ask for user's permission to use IP-based location
+        const useLocation = confirm("This app wants to use your IP address to fetch your location and provide weather data. Do you allow this?");
+        
+        if (useLocation) {
+            fetchWeatherData();
+        } else {
+            document.getElementById('location').textContent = 'Location access denied';
+            document.getElementById('weather-cards').innerHTML = '<div class="col"><p class="text-warning">Location access denied, unable to show weather data.</p></div>';
+        }
+    </script>
+
+<div id="hm-footer"></div>
+<div class="container h-50 w-50"></div>
+
+<div class="form-check form-switch">
+  <input type="checkbox" class="form-check-input" id="darkSwitch" sw1/>
+  <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+<script src="dark-mode-switch.min.js"></script>
+<script src="dark.js"></script>
+
+</body>
+</html>
