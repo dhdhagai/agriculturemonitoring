@@ -36,8 +36,11 @@ function checkLogin() {
                 console.error("Error parsing login details:", error);
             }
         }
-    }, 100); // Delay for 100 milliseconds to allow for the header to load
+    }, 200); // Delay for 100 milliseconds to allow for the header to load
 }
 
 // Call the checkLogin function when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", checkLogin);
+document.addEventListener("DOMContentLoaded", {
+    checkLogin
+    
+});
