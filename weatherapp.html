@@ -56,7 +56,9 @@ function fetchWeatherData() {
 
             // Now fetch the weather data for the user's location
             const apiKey = '8a7bb178711243fdae4105644242809';  // Replace this with your weather API key
-            const weatherUrl = `https://api.weatherapi.com/v1/current.json?key=8a7bb178711243fdae4105644242809&q=23,33&aqi=no`;
+
+            const weatherUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}&aqi=no`;
+
 
             fetch(weatherUrl)
             .then(response => response.json())

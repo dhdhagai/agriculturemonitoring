@@ -93,54 +93,67 @@
     <script src="dark-mode-switch.min.js"></script>
     <script src="dark.js"></script>
 
-    <script>
-        // When the login form is submitted
-        document.getElementById('loginForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-            
-            // Get the username and password from the form fields
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+<script>
+    function checkUserExists(username) {
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        return users.some(user => user.username === username);
+    }
 
-            // Validate inputs (simple check to make sure they aren't empty)
-            if (username && password) {
-                // Create an object to hold the login details
-                const loginDetails = {
-                    username: username,
-                    password: password
-                };
+    // When the login form is submitted
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        
+        // Get the username and password from the form fields
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-                // Convert the object to a JSON string
-                const loginDetailsJSON = JSON.stringify(loginDetails);
-
-                // Store the login details in a cookie called LOGIN_DETAILS for 30 days
-                setCookie('LOGIN_DETAILS', loginDetailsJSON, 30);
-
-                // Display a success message
-                document.getElementById('loginStatus').innerText = "Login successful. Redirecting to HomePage...";
-
-                // Redirect to the home page
-                window.location.href = "/"; // Use window.location.href for proper redirection
-            } else {
-                // If username or password is empty, show an error message
-                document.getElementById('loginStatus').innerText = "Please fill in both fields.";
+        // Validate inputs (simple check to make sure they aren't empty)
+        if (username && password) {
+            // Check if the username exists in local storage
+            if (!checkUserExists(username)) {
+                // Redirect to signup page if the username does not exist
+                window.location.href = 'signup.html';
+                return; // Exit the function after redirection
             }
-        });
 
-        // Function to set a cookie
-        function setCookie(name, value, days) {
-            const expires = new Date();
-            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000)); // Set expiration in days
-            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-        }
+            // Create an object to hold the login details
+            const loginDetails = {
+                username: username,
+                password: password
+            };
 
-        // Function to get a cookie value by name
-        function getCookie(name) {
-            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-            if (match) return match[2];
-            return null;
+            // Convert the object to a JSON string
+            const loginDetailsJSON = JSON.stringify(loginDetails);
+            
+            // Store the login details in a cookie called LOGIN_DETAILS for 30 days
+            setCookie('LOGIN_DETAILS', loginDetailsJSON, 30);
+            
+            // Display a success message
+            document.getElementById('loginStatus').innerText = "Login successful. Redirecting to HomePage...";
+
+            // Redirect to the home page
+            window.location.href = "/"; // Use window.location.href for proper redirection
+        } else {
+            // If username or password is empty, show an error message
+            document.getElementById('loginStatus').innerText = "Please fill in both fields.";
         }
-    </script>
+    });
+
+    // Function to set a cookie
+    function setCookie(name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000)); // Set expiration in days
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+
+    // Function to get a cookie value by name
+    function getCookie(name) {
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
+        return null;
+    }
+</script>
+
 
 </body>
 

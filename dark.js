@@ -25,10 +25,9 @@ $(function () {
         $(".hm-diabetes, .hm-services").addClass("active bulu");
         break;
 
-        case "helpline":
+        case "agricultureai":
         $(".nav-link").removeClass("active");
         $(".dropdown-item").removeClass("active");
-
         $(".hm-helpline, .hm-services").addClass("active bulu");
         break;
       

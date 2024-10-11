@@ -23,10 +23,11 @@ function checkLogin() {
             // User is logged in, display their details
             try {
                 const loginDetailsJSON = JSON.parse(decodeURIComponent(loginDetails));
+                const username = loginDetailsJSON.username;
 
                 // Create a new anchor element for the sign-in status
                 const userLink = document.createElement("a");
-                userLink.innerHTML = `Logged in as ${loginDetailsJSON.username}. Logout`;
+                userLink.innerHTML = `Logged in as ${username}. Logout`;
                 userLink.href = "logout.html"; // Logout link
                 userLink.className = "nav-link"; // Add Bootstrap nav-link class
 
@@ -36,11 +37,8 @@ function checkLogin() {
                 console.error("Error parsing login details:", error);
             }
         }
-    }, 200); // Delay for 100 milliseconds to allow for the header to load
+    }, 100); // Delay for 100 milliseconds to allow for the header to load
 }
 
 // Call the checkLogin function when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", {
-    checkLogin
-    
-});
+document.addEventListener("DOMContentLoaded", checkLogin);
