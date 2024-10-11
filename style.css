@@ -19,12 +19,12 @@ table{
   }
 .btn-primary
 h1 {
-    color: #00a79D;
+    color: #d67e0a;
   text-align: center;
 }
 
 .intro {
-    background-color: #00a79D;
+    background-color: #d67e0a;
     padding: 50px 0;
 }
 .intro h2 {
@@ -47,7 +47,7 @@ h1 {
 }
 
 .bulu:not(.dropdown-item){
-background: #00a79D;
+background: #d67e0a;
 border-radius:10px;
 }
 a.nav-link.active{
@@ -63,7 +63,7 @@ label {
 }
 
 #calculateButton {
-    background-color: #00a79D;
+    background-color: #d67e0a;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -78,10 +78,7 @@ font-family: arial, sans-serif;
 border-collapse: collapse;
 width: 100%;
 }
-button.btn{
-background-color: #00a79D   ;
-width: min-content;
-}
+
 
 
 tr:nth-child(even) {
@@ -111,14 +108,14 @@ button{
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #00a79D;
+    background-color: #d67e0a;
 
     border: none;
     border-radius: 3px;
     cursor: pointer;
 }
 a.bt{
-    background-color: #00a79D;
+    background-color: #d67e0a;
  
 }
 
@@ -165,142 +162,18 @@ a.bt{
 }
 
 /* Hover Effects */
-.btn.button:hover {
-    background-color: #2980b9;
+.button:hover {
+    background-color: #d67e0a;
 }
 
 .link:hover {
-    color: #16a085;
+    color: #d67e0a;
 }
 
 /* Typography */
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.5;
-    font-size: small;
 }
 
 
-form{
-    padding-top: 1em;
-}
-
-
-.card {
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-
-    padding: 0.5rem;
-
-}
-
-.card-body {
-    padding: 0.5rem;
-}
-
-.card-footer {
-
-    padding: 0.5rem;
-
-}
-
-.card-title {
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.card-text {
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-}
-
-.weather-info {
-    display: flex;
-    align-items: center;
-}
-
-.weather-icon-small {
-    width: 40px;
-    height: 40px;
-    margin-right: 0.5rem;
-}
-
-.text-info {
-    flex: 1;
-}
-
-.additional-info {
-    margin-top: 0.5rem;
-}
-
-.mt-3 {
-    margin-top: 1rem;
-}
-
-
-.vertical-card {
-    max-width: 500px; /* Adjust as needed */
-    max-height: inherit;
-    margin: auto;
-}
-
-.forecast-card {
-    max-width: fit-content; /* Adjust as needed */
-
-    margin: auto;
-}
-
-.forecast-container {
-    display: flex;
-
-    overflow-x: auto;
-
-    padding: 0.5rem 0;
-}
-
-.forecast-container > div {
-    flex: 0 0 auto;
-    margin-right: 1rem;
-
-    border-radius: 8px;
-    padding: 0.5rem;
-
-}
-
-.forecast-container img {
-    width: 30px;
-    height: 30px;
-}
-.card-body iframe {
-    width: 100%;
-    height: auto;
-    max-height: 250px; /* Maintain aspect ratio while keeping it responsive */
-}
-#clock {
-    font-size: 48px;
-    color: #333;
-}
-#date {
-    font-size: 24px;
-    color: #666;
-}
-
-#animate{
-    animation: ease-in  5s normal;
-}
-
-#clock {
-    font-size: 48px;
-    color: #333;
-}
-#date {
-    font-size: 24px;
-    color: #666;
-}
-
-#animate{
-    animation: ease-in  5s normal;
-}

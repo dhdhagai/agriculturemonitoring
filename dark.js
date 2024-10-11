@@ -90,10 +90,14 @@ function DarkModeToggle() {
     table: document.getElementById("table"),
     drpdwn: document.getElementById("drpdwn"),
     allLinks: document.querySelectorAll("a"),
+    textContainer: document.querySelectorAll(".text-container")
   };
 
   // Function to apply dark mode classes
   function applyDarkMode() {
+    elementsToToggle.textContainer.forEach(el => {
+      el.classList.add("bg-dark", "text-white")
+    })
     elementsToToggle.img.forEach(el => {
       el.setAttribute("src", "github-mark-white.svg");
     });
@@ -135,6 +139,9 @@ function DarkModeToggle() {
 
   // Function to remove dark mode classes
   function removeDarkMode() {
+    elementsToToggle.textContainer.forEach(el => {
+      el.classList.remove("bg-dark", "text-white")
+    })
     elementsToToggle.img.forEach(el => {
       el.setAttribute("src", "github-mark.svg");
     });
@@ -183,3 +190,4 @@ function DarkModeToggle() {
     removeDarkMode();
   }
 }
+
