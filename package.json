@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "axios": "^0.28.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "serverless-http": "^2.3.2"
+  },
+  "scripts": {
+        "build": "echo 'No build step required'",
+    "dev": "node functions/api.js homerun",
+    "start": "node functions/api.js"
+  },
+  "name": "agriculturemonitoring",
+  "description": "",
+  "version": "1.0.0",
+  "main": "functions/api.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
