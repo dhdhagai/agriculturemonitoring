@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign-Up - Agriculture Monitoring</title>
+  
   <script>
     // Check if user is logged in and redirect to home page if so
     window.onload = function() {
       var loginDetails = document.cookie.split(';').find(row => row.trim().startsWith('LOGIN_DETAILS='));
 
       if (loginDetails) {
-          document.getElementById('sign').href = "logout.html";
-      } else {
-          document.location = "/login.html";
+          document.location = "/"; // Redirect to home page if logged in
       }
     };
 
