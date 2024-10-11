@@ -1,7 +1,0 @@
-For AI API
-
-https://ai.google.dev/pricing
-
-For Authentication API
-
-https://warrant.dev/
