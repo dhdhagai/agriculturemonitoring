@@ -18,24 +18,22 @@ $(function () {
         $(".hm-about").addClass("active bulu");
 
         break;
-      case "none":
+        case "liveview":
         $(".nav-link").removeClass("active");
         $(".dropdown-item").removeClass("active");
-
-        $(".hm-diabetes, .hm-services").addClass("active bulu");
+        $(".hm-liveview, .hm-services").addClass("active bulu");
         break;
 
         case "agricultureai":
         $(".nav-link").removeClass("active");
         $(".dropdown-item").removeClass("active");
-        $(".hm-helpline, .hm-services").addClass("active bulu");
+        $(".hm-agricultureai, .hm-services").addClass("active bulu");
         break;
       
-        case "bmi":
+        case "weatherapp":
         $(".nav-link").removeClass("active");
         $(".dropdown-item").removeClass("active");
-
-        $(".hm-bmi, .hm-services").addClass("active bulu");
+        $(".hm-weatherapp, .hm-services").addClass("active bulu");
         break;
         case "hospital":
         $(".nav-link").removeClass("active");
