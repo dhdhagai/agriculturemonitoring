@@ -1,29 +1,25 @@
-import secretPhrase from "./env.js"
-const allowedEntrires = 3;
-
+import secretPhrase from "./env.js";
+const allowedEntries = 3;
 
 document.getElementById('chat-form').addEventListener('submit', async (e) => {
-
     e.preventDefault();
     const apiKey = secretPhrase();
-    console.log("Test")
+    console.log("Test");
 
     const input = document.getElementById('user-input');
     const message = input.value;
     if (!message) return;
-    
-    addMessage('user', message);
+
+    const aisubmit = document.getElementById("aisubmit");
+    aisubmit.disabled = true;
+    aisubmit.style.background = "grey";
+
+    addMessage('User', message, aisubmit);
     input.value = '';
 
-    const userMessage = input;
-    console.log(userMessage);
-    const aisubmit = document.getElementById("aisubmit")
-aisubmit.disabled = true
-
-aisubmit.style.background = "grey";
     try {
-const data = {"contents":[{"parts":[{"text":message}]}]}
-        
+        const data = { "contents": [{ "parts": [{ "text": message }] }] };
+
         fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: {
@@ -33,28 +29,56 @@ const data = {"contents":[{"parts":[{"text":message}]}]}
         })
         .then(response => response.json())
         .then(data => {
-            addMessage("BOT: ",data.candidates[0].content.parts[0].text)
-            aisubmit.disabled = false;
-            aisubmit.style.background = "#d67e0a"
+            addMessage("Bot", data.candidates[0].content.parts[0].text, aisubmit);
+
+            
         })
         .catch((error) => {
             console.error('Error:', error);
+            aisubmit.disabled = false; // Enable the button on error
+            aisubmit.style.background = "#d67e0a"; // Reset button color
         });
-    
+
     } catch (error) {
         console.error('Error making API request:', error);
+        aisubmit.disabled = false; // Enable the button on error
+        aisubmit.style.background = "#d67e0a"; // Reset button color
     }
-    
 });
 
-function addMessage(sender, message) {
+function addMessage(sender, message, submitButton) {
     const messages = document.getElementById('messages');
-    const div = document.createElement('div');
-    var converter = new showdown.Converter();
-    var md = message;
-    var html = converter.makeHtml(md);
-    div.classList.add('chat-message');
-    div.innerHTML = `<strong>${sender}:</strong> ${html}`;
+    const div = document.createElement("div");
+
+    div.classList.add('p-2', 'mb-2', 'rounded', 'chatmsg');
+
+    const converter = new showdown.Converter();
+    const htmlMessage = converter.makeHtml(message);
+    div.innerHTML = `<strong>${sender}:</strong> ${htmlMessage}`;
+
     messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
+     // Scroll to the latest message
+
+    // If the sender is Bot, call the typing effect
+    if (sender === 'Bot') {
+        const uniqueId = `bot-message-${Date.now()}`;
+        div.innerHTML = `<strong>Bot:</strong> <span id="${uniqueId}" class="typed-message"></span>`;
+        messages.appendChild(div);
+        typing(`#${uniqueId}`, htmlMessage, submitButton);
+    }
+}
+
+// Function to handle typing effect with Typed.js
+function typing(targetElement, htmlMessage, submitButton) {
+    new Typed(targetElement, {
+        strings: [htmlMessage],
+        typeSpeed: 10,
+        showCursor: false,
+        loop: false,
+        onComplete: function() {
+            submitButton.disabled = false; // Re-enable the button when typing is complete
+            messages.scrollTop = messages.scrollHeight;
+            aisubmit.style.background = "#d67e0a";
+        }
+    });
 }
