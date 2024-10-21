@@ -3,3 +3,5 @@ node_modules
 env.js
 # Local Netlify folder
 .netlify
+ESP8266.ino
+ArduinoUno.ino

@@ -1,6 +1,9 @@
 import secretPhrase from "./env.js"
+const allowedEntrires = 3;
+
 
 document.getElementById('chat-form').addEventListener('submit', async (e) => {
+
     e.preventDefault();
     const apiKey = secretPhrase();
     console.log("Test")
@@ -8,13 +11,16 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
     const input = document.getElementById('user-input');
     const message = input.value;
     if (!message) return;
-
+    
     addMessage('user', message);
     input.value = '';
 
     const userMessage = input;
     console.log(userMessage);
-    
+    const aisubmit = document.getElementById("aisubmit")
+aisubmit.disabled = true
+
+aisubmit.style.background = "grey";
     try {
 const data = {"contents":[{"parts":[{"text":message}]}]}
         
@@ -28,6 +34,8 @@ const data = {"contents":[{"parts":[{"text":message}]}]}
         .then(response => response.json())
         .then(data => {
             addMessage("BOT: ",data.candidates[0].content.parts[0].text)
+            aisubmit.disabled = false;
+            aisubmit.style.background = "#d67e0a"
         })
         .catch((error) => {
             console.error('Error:', error);
