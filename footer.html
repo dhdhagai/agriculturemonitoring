@@ -1,21 +1,21 @@
-<section class="">
-    <!-- Footer -->
-    <div class="container-fluid bg-primary ">
-        <footer>
-            <!-- Grid container -->
-            <div class="text-white w-100 " >
+<footer class="site-footer">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="mb-3 mb-md-0">
+            <a href="/" class="d-inline-flex align-items-center text-white text-decoration-none">
+                <img src="github-mark.svg" alt="logo" style="height:36px;margin-right:.5rem">
+                <strong>AgriMonitor</strong>
+            </a>
+            <p class="small text-white-50 mt-2">Open-source agriculture monitoring dashboard.</p>
+        </div>
 
-                <a href="https://github.com/dhdhagai/agriculturemonitoring" target="_blank"><img src="github-mark.svg" class="  img-fluid float-start img-github-mark"></a>
-                
-            </div>
-            
-        </footer>
+        <div class="text-end small">
+            <div><a href="https://github.com/dhdhagai/agriculturemonitoring" target="_blank" class="text-white">View on GitHub</a></div>
+            <div id="lastUpdated" class="text-white-50 mt-1">Updated: <span id="updatedTime">2025-10-08</span></div>
+        </div>
     </div>
-    <!-- Footer -->
-</section>
-<script>
+</footer>
 
-setTimeout(() => {
-    DarkModeToggle()
-}, 200);
+<script>
+    // keep footer updated time dynamic
+    document.getElementById('updatedTime').textContent = new Date().toISOString().slice(0,10);
 </script>

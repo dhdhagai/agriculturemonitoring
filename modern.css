@@ -1,0 +1,57 @@
+:root{
+  --bg:#f7fafc;
+  --surface:#ffffff;
+  --muted:#6b7280;
+  --primary:#0d6efd;
+  --radius:12px;
+  --max-width:1100px;
+  --gap:1rem;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  margin:0;
+  background:var(--bg);
+  color:#0f172a;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{max-width:var(--max-width);margin:0 auto;padding:0 1rem}
+
+/* Header */
+header.site-header{background:transparent;padding:1rem 0}
+.site-header .navbar{padding:0}
+.brand{display:flex;align-items:center;gap:.75rem}
+.brand img{height:40px}
+
+/* Hero */
+.hero{padding-top:3.5rem;padding-bottom:3.5rem}
+.display-5{font-weight:700;margin-bottom:.5rem}
+.lead{color:var(--muted);font-size:1.05rem}
+.img-hero{max-height:240px;border-radius:10px;object-fit:contain}
+
+/* Cards */
+.card{border:none;border-radius:var(--radius)}
+.card h5{margin-top:0}
+
+/* Footer */
+.site-footer{background:#0b2447;color:#fff;padding:2rem 0;margin-top:3rem}
+.site-footer a{color:rgba(255,255,255,.9)}
+
+/* Utilities */
+.text-muted{color:var(--muted)}
+.shadow-sm{box-shadow:0 6px 18px rgba(12,20,30,0.06)}
+
+/* Dark mode adjustments (simple) */
+:root[data-theme='dark']{
+  --bg:#071025;
+  --surface:#071a2b;
+  color:#e6eef8;
+}
+
+@media (max-width:767px){
+  .display-5{font-size:1.6rem}
+  .img-hero{max-height:160px}
+}
